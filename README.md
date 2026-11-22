@@ -2,6 +2,7 @@
 
 A machine learning regression project that predicts the monthly closing stock price (`Close`) of **Yes Bank** using historical monthly OHLC (`Open`, `High`, `Low`, `Close`) records from July 2005 to November 2020. The project evaluates how linear, regularized linear, and tree-based ensemble models perform across both steady bull-market growth and extreme structural shocks—most notably the **September 2018 Rana Kapoor fraud and governance crisis**.
 
+
 ## 📌 Table of Contents
 
 - [Business Context & Objective](#-business-context--objective)
@@ -12,6 +13,7 @@ A machine learning regression project that predicts the monthly closing stock pr
 - [Tech Stack](#-tech-stack)
 - [Getting Started](#-getting-started)
 - [Conclusion & Future Scope](#-conclusion--future-scope)
+
 
 ## 🎯 Business Context & Objective
 
@@ -34,6 +36,7 @@ The dataset (`data_YesBank_StockPrices.csv`) contains **185 monthly records** sp
 
 - **Source URL:** `https://raw.githubusercontent.com/SristiSarkarMCKV/Yes-Bank-Stock-Closing-Price-Prediction/main/data_YesBank_StockPrices.csv`
 
+
 ## 🏗️ Project Architecture
 
 1. **Data Loading & Clean-Up:** Stream raw CSV data, parse `Date` into chronological datetime objects, sort records ascending, and verify zero null/duplicate entries.
@@ -50,11 +53,13 @@ The dataset (`data_YesBank_StockPrices.csv`) contains **185 monthly records** sp
    - Tune hyperparameters via `GridSearchCV` with `TimeSeriesSplit(n_splits=5)`.
 5. **Evaluation & Explainability:** Compare models using `MSE`, `RMSE`, `MAE`, `MAPE`, and $R^2$, and examine standardized feature coefficients.
 
+
 ## 🔍 Exploratory Data Analysis & Key Insights
 
 - **2018 Structural Break:** Stock prices climbed steadily from ~₹12 in 2005 to a peak of **₹367.90** in July 2018 before plummeting below ₹20 in 2020.
 - **High Multicollinearity:** `Open` ($\text{VIF} = 175.19$), `High` ($\text{VIF} = 167.06$), and `Low` ($\text{VIF} = 71.57$) exhibit pairwise correlations above $0.978$, making L1/L2 regularization critical for coefficient stability.
 - **Outlier Retention:** Upper-tail IQR outliers correspond to valid historical highs during 2017–2018 and are preserved so the model learns high-valuation regimes.
+
 
 ## 🏆 Model Comparison & Results
 
@@ -74,12 +79,14 @@ Evaluated on the out-of-time test set (**Nov 2017 – Nov 2020**, covering the 2
 - **Regularized Linear Models Win:** **ElasticNet / Lasso Regression** achieves an $R^2$ **of 0.9848** and an RMSE of **₹15.78**, outperforming tree ensembles because linear combinations of `Open`, `High`, and `Low` extrapolate smoothly across sharp market drops.
 - **Feature Importance (Standardized Coefficients):** `High` (`+73.51`) and `Low` (`+63.31`) act as strong positive anchors, while `Open` (`-52.70`) captures intra-month directional reversal.
 
+
 ## 🛠️ Tech Stack
 
 - **Language:** Python 3.8+
 - **Data Manipulation:** `pandas`, `numpy`
 - **Visualization:** `matplotlib`, `seaborn`
 - **Machine Learning & Statistics:** `scikit-learn`, `statsmodels`
+
 
 ## 🚀 Getting Started
 
@@ -104,9 +111,10 @@ Run the Python script or Jupyter/Colab notebook—the data loader automatically 
 python yes_bank_stock_prediction.py
 ```
 
+
 ## 💡 Conclusion & Future Scope
 
 - **Conclusion:** Despite extreme volatility following the 2018 governance crisis, regularized linear models (**ElasticNet** and **Lasso**) effectively handle severe OHLC multicollinearity and accurately estimate monthly closing prices ($R^2 = 0.9848$).
 - **Future Scope:**
-  - Engineer lagged features ($\text{Close}_{t-1}, \text{Close}_{t-2}$) and rolling volatility indicators for multi-step forward forecasting without intra-month `High`/`Low` inputs.
+  - Engineer lagged features ($\mathrm{Close}_{t-1}, \mathrm{Close}_{t-2}$) and rolling volatility indicators for multi-step forward forecasting without intra-month `High`/`Low` inputs.
   - Incorporate macroeconomic indicators and financial news sentiment analysis to capture sudden corporate governance shocks earlier.
