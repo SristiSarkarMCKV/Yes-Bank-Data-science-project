@@ -116,5 +116,5 @@ python yes_bank_stock_prediction.py
 
 - **Conclusion:** Despite extreme volatility following the 2018 governance crisis, regularized linear models (**ElasticNet** and **Lasso**) effectively handle severe OHLC multicollinearity and accurately estimate monthly closing prices ($R^2 = 0.9848$).
 - **Future Scope:**
-  - Engineer lagged features ($\mathrm{Close}_{t-1}, \mathrm{Close}_{t-2}$) and rolling volatility indicators for multi-step forward forecasting without intra-month `High`/`Low` inputs.
+  - Engineer lagged features (`Close(t-1)`, `Close(t-2)`) and rolling volatility indicators for multi-step forward forecasting without intra-month `High`/`Low` inputs.
   - Incorporate macroeconomic indicators and financial news sentiment analysis to capture sudden corporate governance shocks earlier.
